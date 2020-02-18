@@ -1,6 +1,6 @@
 import {useMemo, useContext} from 'react';
 import {StyleSheet} from 'react-native';
-import {Theme, MergeRecursiveTheme} from './theme';
+import {MergeRecursiveTheme} from './theme';
 import ThemeContext from './Context';
 
 export * from './Context';
@@ -26,7 +26,7 @@ export function useTheme<T extends MergeRecursive<T, Theme>>(
 
 export function makeStyle<
   N extends NamedStyles<N>,
-  P,
+  P extends any,
   T extends MergeRecursiveTheme<T>
 >(styles: StyleCallback<N, P, T>): UseStyles<N, P, T> {
   return function(props, theme) {

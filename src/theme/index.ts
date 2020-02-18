@@ -47,4 +47,5 @@ declare global {
     elevations: Elevations;
     spacing: Spacing;
   }
+  interface RNStyleAppTheme extends Theme {}
 }

@@ -3,27 +3,24 @@ import {DEFAULT_THEME} from './theme';
 
 export type Props = {
   children: React.ReactNode;
-} & typeof RNStyleThemeProvider.defaultProps;
+} & typeof ThemeProvider.defaultProps;
 
 const RNStyleThemeContext = createContext(DEFAULT_THEME);
 RNStyleThemeContext.displayName = 'DefaultThemeContext';
 
-const {
-  Provider: ThemeContextProvider,
-  Consumer: ThemeContextConsumer,
-} = RNStyleThemeContext;
+const {Provider, Consumer} = RNStyleThemeContext;
 
-export const RNStyleThemeConsumer = ThemeContextConsumer;
+export const ThemeConsumer = Consumer;
 
-export function RNStyleThemeProvider(props: Props) {
+export function ThemeProvider(props: Props) {
   return (
-    <ThemeContextProvider value={{...DEFAULT_THEME, ...props.theme}}>
+    <Provider value={{...DEFAULT_THEME, ...props.theme}}>
       {props.children}
-    </ThemeContextProvider>
+    </Provider>
   );
 }
 
-RNStyleThemeProvider.defaultProps = {
+ThemeProvider.defaultProps = {
   theme: DEFAULT_THEME,
 };
 

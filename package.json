@@ -4,6 +4,7 @@
   "main": "lib/index.js",
   "types": "lib/typings/index.d.ts",
   "module": "lib/index.js",
+  "private": false,
   "license": "MIT",
   "scripts": {
     "android": "react-native run-android",
@@ -11,8 +12,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "tsc": "tsc -p src/tsconfig.json -w",
-    "build": "rm -rf josedache-* && yarn pack"
+    "tsc": "tsc -p src/tsconfig.json",
+    "build": "yarn run tsc && rm -rf josedache-* && yarn pack && yarn add ./josedache-rn-style-v1.0.0.tgz"
   },
   "files": [
     "lib"
@@ -25,6 +26,9 @@
     "@babel/core": "^7.8.4",
     "@babel/runtime": "^7.8.4",
     "@react-native-community/eslint-config": "^0.0.7",
+    "@react-native-community/masked-view": "^0.1.6",
+    "@react-navigation/native": "^5.0.5",
+    "@react-navigation/stack": "^5.0.5",
     "@types/jest": "^25.1.2",
     "@types/react": "^16.9.19",
     "@types/react-native": "^0.61.15",
@@ -35,6 +39,10 @@
     "metro-react-native-babel-preset": "^0.58.0",
     "react": "16.9.0",
     "react-native": "0.61.5",
+    "react-native-gesture-handler": "^1.6.0",
+    "react-native-reanimated": "^1.7.0",
+    "react-native-safe-area-context": "^0.7.3",
+    "react-native-screens": "^2.0.0-beta.6",
     "react-test-renderer": "16.9.0",
     "typescript": "^3.7.5"
   },

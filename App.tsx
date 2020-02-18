@@ -1,13 +1,11 @@
-import React from 'react';
-import {View, Text} from 'react-native';
-import {makeStyle, createTheme, RNStyleThemeProvider} from './src';
-
-const appTheme = createTheme({
-  lack: '',
-  colors: {
-    primary: 'green',
-  },
-});
+import React, {Fragment} from 'react';
+import {Button} from 'react-native';
+import {createTheme, ThemeProvider} from '@josedache/rn-style';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import ElevationDemo from './demo/Elevations';
+import ColorDemo from './demo/Colors';
+import TypographyDemo from './demo/Typography';
 
 declare global {
   interface Theme {
@@ -15,36 +13,48 @@ declare global {
   }
 }
 
+const appTheme = createTheme({
+  lack: '',
+  colors: {
+    primary: 'tomato',
+  },
+});
+
+const routes: any[] = [ElevationDemo, ColorDemo, TypographyDemo];
+
+function Home(props: any) {
+  return (
+    <Fragment>
+      {routes.map(({routeName}) => (
+        <Button
+          title={routeName}
+          key={routeName}
+          onPress={() => props.navigation.navigate(routeName)}
+        />
+      ))}
+    </Fragment>
+  );
+}
+
+const Stack = createStackNavigator();
+
 function App() {
-  const styles = useStyle();
   return (
-    <RNStyleThemeProvider theme={appTheme}>
-      <View style={styles.container}>
-        <Text>Hello Make Style</Text>
-        <Day />
-      </View>
-    </RNStyleThemeProvider>
+    <ThemeProvider theme={appTheme}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home} />
+          {routes.map(route => (
+            <Stack.Screen
+              key={route.routeName}
+              name={route.routeName}
+              component={route}
+            />
+          ))}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }
-
-function Day() {
-  const styles = useStyle();
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Hello Make Style</Text>
-    </View>
-  );
-}
-const useStyle = makeStyle(theme => ({
-  container: {
-    backgroundColor: theme.colors.primary,
-    ...theme.elevations.e12,
-    padding: theme.spacing(),
-  },
-  text: {
-    ...theme.typography.h1,
-  },
-}));
 
 export default App;
