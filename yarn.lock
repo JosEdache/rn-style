@@ -937,6 +937,10 @@
   version "1.0.0"
   resolved "./josedache-rn-style-v1.0.0.tgz#400e8bc8ce43203189be4afc5b18b780acc0544a"
 
+"@josedache/rn-style@./josedache-rn-style-v1.0.1.tgz":
+  version "1.0.1"
+  resolved "./josedache-rn-style-v1.0.1.tgz#9f47276338f860536d1d424932f501587d6ad3f3"
+
 "@react-native-community/cli-debugger-ui@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-3.0.0.tgz#d01d08d1e5ddc1633d82c7d84d48fff07bd39416"

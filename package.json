@@ -13,11 +13,20 @@
     "test": "jest",
     "lint": "eslint .",
     "tsc": "tsc -p src/tsconfig.json",
-    "build": "yarn run tsc && rm -rf josedache-* && yarn pack && yarn add -D ./josedache-rn-style-v1.0.0.tgz"
+    "build": "yarn run tsc && rm -rf josedache-* && yarn pack && yarn add -D ./josedache-rn-style-v1.0.1.tgz"
   },
   "files": [
     "lib"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JosEdache/rn-style"
+  },
+  "author": {
+    "name": "Edache Joseph",
+    "email": "josedache0@gmail.com",
+    "url": "https://github.com/JosEdache/rn-style"
+  },
   "peerDependencies": {
     "react": "^16.8.0",
     "react-native": "^0.60.0"
@@ -25,7 +34,7 @@
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/runtime": "^7.8.4",
-    "@josedache/rn-style": "./josedache-rn-style-v1.0.0.tgz",
+    "@josedache/rn-style": "./josedache-rn-style-v1.0.1.tgz",
     "@react-native-community/eslint-config": "^0.0.7",
     "@react-native-community/masked-view": "^0.1.6",
     "@react-navigation/native": "^5.0.5",
