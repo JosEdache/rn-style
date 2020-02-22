@@ -13,7 +13,7 @@
     "test": "jest",
     "lint": "eslint .",
     "tsc": "tsc -p src/tsconfig.json",
-    "build": "yarn run tsc && rm -rf josedache-* && yarn pack && yarn add -D ./josedache-rn-style-v1.0.2.tgz"
+    "build": "rm -rf josedache-* && yarn pack && yarn add -D ./josedache-rn-style-v1.0.2.tgz"
   },
   "files": [
     "lib"
