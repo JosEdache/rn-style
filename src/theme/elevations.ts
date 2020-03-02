@@ -1,3 +1,4 @@
+import {MergeRecursive, PartialRecursive} from '../types';
 export interface Elevation {
   shadowColor: string;
   shadowOffset: {width: number; height: number};

@@ -1,3 +1,4 @@
+import {MergeRecursive, PartialRecursive} from '../types';
 export type FontWeight =
   | 'normal'
   | 'bold'

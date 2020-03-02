@@ -12,7 +12,7 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "tsc": "tsc -p src/tsconfig.json",
+    "tsc": "rm -rf lib && tsc -p src/tsconfig.json",
     "build": "rm -rf josedache-* && yarn pack && yarn add -D ./josedache-rn-style-v1.0.2.tgz"
   },
   "files": [
@@ -34,6 +34,7 @@
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/runtime": "^7.8.4",
+    "@josedache/rn-style": "./josedache-rn-style-v1.0.2.tgz",
     "@react-native-community/eslint-config": "^0.0.7",
     "@react-native-community/masked-view": "^0.1.6",
     "@react-navigation/native": "^5.0.5",

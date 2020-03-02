@@ -1,3 +1,4 @@
+import {MergeRecursive, PartialRecursive} from '../types';
 export interface Colors {
   // [key: string]: any;
   primary: string;

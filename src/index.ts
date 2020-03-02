@@ -2,9 +2,11 @@ import {useMemo, useContext} from 'react';
 import {StyleSheet} from 'react-native';
 import {MergeRecursiveTheme} from './theme';
 import ThemeContext from './Context';
+import {PartialRecursive} from './types';
 
 export * from './Context';
 export * from './theme';
+export * from './types';
 
 type NamedStyles<T> = StyleSheet.NamedStyles<T> | StyleSheet.NamedStyles<any>;
 type StyleCallback<N, P, T> =
@@ -13,7 +15,7 @@ type StyleCallback<N, P, T> =
   | StyleSheet.NamedStyles<N>;
 type UseStyles<N, P, T> = (props?: P, theme?: PartialRecursive<T>) => N;
 
-export function useTheme<T extends MergeRecursive<T, Theme>>(
+export function useTheme<T extends MergeRecursiveTheme<T>>(
   theme?: PartialRecursive<T>,
 ): T {
   const contextTheme = useContext(ThemeContext);
