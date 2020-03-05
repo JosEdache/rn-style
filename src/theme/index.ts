@@ -1,42 +1,83 @@
-import React, {createContext} from 'react';
 import {Typography, createTypography} from './typography';
-import {Colors, createColors} from './colors';
-import {Elevations, createElevations} from './elevations';
-import {Spacing, createSpacing} from './spacing';
-import {MergeRecursive, PartialRecursive} from '../types';
+import {
+  Colors,
+  createColors,
+  DEFAULT_DARK_COLORS,
+  DEFAULT_LIGHT_COLORS,
+} from './colors';
+import {shadow, surfaceOverlay} from './shadow';
+import {spacing} from './spacing';
+import {MergeRecursive, PartialRecursive, ThemeMode} from '../types';
+import {disabledStyle} from './states';
 
 export * from './typography';
 export * from './colors';
-export * from './elevations';
+export * from './shadow';
 export * from './spacing';
+export * from './states';
 
 export interface Theme {
+  mode: ThemeMode;
   colors: Colors;
   typography: Typography;
-  elevations: Elevations;
-  spacing: Spacing;
+  shadow: typeof shadow;
+  spacing: typeof spacing;
+  surfaceOverlay: (overlay: number) => {} | ReturnType<typeof surfaceOverlay>;
+  disabledStyle: typeof disabledStyle;
 }
+
+export type ThemeConfig<T> = MergeRecursive<
+  T,
+  {
+    lightColors: Colors;
+    darkColors: Colors;
+  } & Omit<Theme, 'colors'>
+>;
 
 export type MergeRecursiveTheme<T> = MergeRecursive<T, Theme>;
+export type MergeRecursiveThemeMode<T> = MergeRecursiveTheme<
+  Omit<T, 'lightColors' | 'darkColors'>
+>;
 
-export const DEFAULT_THEME = createTheme();
+export const DEFAULT_THEME = createTheme({
+  lightColors: DEFAULT_LIGHT_COLORS,
+  darkColors: DEFAULT_DARK_COLORS,
+  mode: 'LIGHT',
+});
 
-export function createTheme<T extends MergeRecursiveTheme<T>>(
-  theme: PartialRecursive<T> = {},
+export function createTheme<T extends ThemeConfig<T>>(
+  theme: PartialRecursive<T>,
 ): T {
-  return {
-    spacing: createSpacing,
-    ...theme,
-    colors: createColors(theme.colors),
-    typography: createTypography(theme.typography),
-    elevations: createElevations(theme.elevations),
-  } as T;
+  return theme as T;
 }
 
-export function createContextTheme<T extends MergeRecursive<T, Theme>>(
+export function configureTheme<T extends ThemeConfig<T>>(
   theme: PartialRecursive<T> = {},
-): React.Context<T> {
-  const contextTheme = createTheme(theme);
-  const context = createContext(contextTheme);
-  return context;
+): MergeRecursiveThemeMode<T> {
+  const {
+    mode = 'LIGHT',
+    lightColors,
+    darkColors,
+    typography,
+    ...others
+  } = theme;
+  const colors =
+    (mode as any) === 'LIGHT'
+      ? {...DEFAULT_LIGHT_COLORS, ...lightColors}
+      : {...DEFAULT_DARK_COLORS, ...darkColors};
+  return {
+    mode: mode,
+    spacing,
+    shadow,
+    surfaceOverlay: overlay =>
+      mode === 'LIGHT' ? {} : surfaceOverlay(overlay),
+    disabledStyle: props =>
+      disabledStyle({
+        ...props,
+        mode: (props && props.mode) || (mode as ThemeMode),
+      }),
+    ...others,
+    colors: createColors(colors),
+    typography: createTypography(typography as any),
+  } as MergeRecursiveThemeMode<T>;
 }

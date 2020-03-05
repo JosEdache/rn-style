@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {makeStyle} from '@josedache/rn-style';
+import {makeStyle, shadow} from '@josedache/rn-style';
 
 function Colors() {
   const styles = useStyle();
@@ -20,6 +20,7 @@ const useStyle = makeStyle(theme => ({
   container: {
     flex: 1,
     padding: theme.spacing(2),
+    backgroundColor: theme.colors.background,
   },
   color_container: {
     height: 100,
@@ -27,11 +28,11 @@ const useStyle = makeStyle(theme => ({
     borderRadius: theme.spacing(2),
     alignItems: 'center',
     justifyContent: 'center',
-    ...theme.elevations.e2,
+    ...shadow(2),
   },
   text: {
     ...theme.typography.h5,
-    color: theme.colors.white,
+    color: theme.colors.textOnPrimary,
   },
   primary: {
     backgroundColor: theme.colors.primary,

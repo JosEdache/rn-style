@@ -1,27 +1,29 @@
-import React, {createContext} from 'react';
-import {DEFAULT_THEME} from './theme';
+import React, {createContext, memo} from 'react';
+import {DEFAULT_THEME, configureTheme} from './theme';
+import {ThemeMode} from './types';
 
-export type Props = {
-  children: React.ReactNode;
-} & typeof ThemeProvider.defaultProps;
+export type ThemeProviderProps = {
+  children?: React.ReactNode;
+  mode?: ThemeMode;
+} & typeof TP.defaultProps;
 
-const RNStyleThemeContext = createContext(DEFAULT_THEME);
-RNStyleThemeContext.displayName = 'DefaultThemeContext';
+export const ThemeContext = createContext(configureTheme(DEFAULT_THEME));
+ThemeContext.displayName = 'DefaultThemeContext';
 
-const {Provider, Consumer} = RNStyleThemeContext;
+const {Provider, Consumer} = ThemeContext;
 
 export const ThemeConsumer = Consumer;
 
-export function ThemeProvider(props: Props) {
-  return (
-    <Provider value={{...DEFAULT_THEME, ...props.theme}}>
-      {props.children}
-    </Provider>
-  );
+function TP(props: ThemeProviderProps) {
+  const {mode, theme} = props;
+  const THEME = configureTheme({...theme, mode: mode || theme.mode});
+  return <Provider value={THEME}>{props.children}</Provider>;
 }
 
-ThemeProvider.defaultProps = {
+TP.defaultProps = {
   theme: DEFAULT_THEME,
 };
 
-export default RNStyleThemeContext;
+export const ThemeProvider = memo(TP);
+
+export default ThemeContext;

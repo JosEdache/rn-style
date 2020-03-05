@@ -1,34 +1,52 @@
 import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
-import {makeStyle, useTheme} from '@josedache/rn-style';
+import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import {
+  makeStyle,
+  shadow,
+  SurfaceOverlay,
+  LayoutBox,
+  Text as StyledText,
+} from '@josedache/rn-style';
 
 function Elevations() {
   const styles = useStyle();
-  const theme = useTheme();
   return (
     <ScrollView style={styles.container}>
-      <View style={[styles.elevation_container, theme.elevations.e0]}>
+      <View style={[styles.elevation_container, shadow(0)]}>
+        <SurfaceOverlay overlay={0} />
         <Text style={styles.text}>Elevation 0</Text>
       </View>
-      <View style={[styles.elevation_container, theme.elevations.e1]}>
+      <View style={[styles.elevation_container, shadow(1)]}>
+        <SurfaceOverlay overlay={1} />
         <Text style={styles.text}>Elevation 1</Text>
       </View>
-      <View style={[styles.elevation_container, theme.elevations.e2]}>
-        <Text style={styles.text}>Elevation 2</Text>
-      </View>
-      <View style={[styles.elevation_container, theme.elevations.e3]}>
+      <LayoutBox
+        height={100}
+        justifyContent="center"
+        alignItems="center"
+        margin={8}
+        elevation={2}
+        overlayBrand="secondary">
+        <StyledText style={styles.text} category="h4">
+          Elevation 2
+        </StyledText>
+      </LayoutBox>
+      <View style={[styles.elevation_container, shadow(3)]}>
+        <View style={styles.overlay} />
+        <SurfaceOverlay overlay={3} />
         <Text style={styles.text}>Elevation 3</Text>
       </View>
-      <View style={[styles.elevation_container, theme.elevations.e4]}>
+      <View style={[styles.elevation_container, shadow(4)]}>
         <Text style={styles.text}>Elevation 4</Text>
       </View>
-      <View style={[styles.elevation_container, theme.elevations.e5]}>
+      <View style={[styles.elevation_container, shadow(5)]}>
         <Text style={styles.text}>Elevation 5</Text>
       </View>
-      <View style={[styles.elevation_container, theme.elevations.e6]}>
+      <View style={[styles.elevation_container, shadow(6)]}>
+        <SurfaceOverlay overlay={6} />
         <Text style={styles.text}>Elevation 6</Text>
       </View>
-      <View style={[styles.elevation_container, theme.elevations.e7]}>
+      <View style={[styles.elevation_container, shadow(7)]}>
         <Text style={styles.text}>Elevation 7</Text>
       </View>
     </ScrollView>
@@ -38,6 +56,8 @@ function Elevations() {
 const useStyle = makeStyle(theme => ({
   container: {
     padding: theme.spacing(2),
+    backgroundColor: theme.colors.background,
+    borderRadius: 8,
   },
   elevation_container: {
     height: 100,
@@ -45,11 +65,15 @@ const useStyle = makeStyle(theme => ({
     borderRadius: theme.spacing(2),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.surface,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: theme.colors.brandSurfaceOverlay,
   },
   text: {
     ...theme.typography.h5,
-    color: theme.colors.primary,
+    color: theme.colors.secondary,
   },
 }));
 

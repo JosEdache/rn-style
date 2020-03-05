@@ -146,7 +146,7 @@ export function createTypography<T extends MergeRecursive<T, Typography>>(
       fontWeight: typography.fontWeightRegular || config.fontWeightRegular,
       fontSize: 10,
       letterSpacing: 1.5,
-      // textTransform: 'uppercase',
+      textTransform: 'uppercase',
     },
     ...typography,
   } as T;

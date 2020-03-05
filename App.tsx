@@ -8,9 +8,7 @@ import ColorDemo from './demo/Colors';
 import TypographyDemo from './demo/Typography';
 
 const appTheme = createTheme({
-  colors: {
-    primary: 'tomato',
-  },
+  mode: 'DARK',
 });
 
 const routes: any[] = [ElevationDemo, ColorDemo, TypographyDemo];

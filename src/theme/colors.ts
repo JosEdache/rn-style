@@ -1,32 +1,50 @@
 import {MergeRecursive, PartialRecursive} from '../types';
+
 export interface Colors {
   // [key: string]: any;
   primary: string;
   primaryLight: string;
   primaryDark: string;
-  primaryText: string;
-  primaryLightText: string;
-  primaryDarkText: string;
+  textOnPrimary: string;
+  textOnPrimaryLight: string;
+  textOnPrimaryDark: string;
   secondary: string;
   secondaryLight: string;
   secondaryDark: string;
-  secondaryText: string;
-  secondaryLightText: string;
-  secondaryDarkText: string;
-  additional: string;
-  additionalLight: string;
-  additionalDark: string;
-  additionalText: string;
-  additionalLightText: string;
-  additionalDarkText: string;
+  textOnSecondary: string;
+  textOnSecondaryLight: string;
+  textOnSecondaryDark: string;
+  alternative: string;
+  alternativeLight: string;
+  alternativeDark: string;
+  textOnAlternative: string;
+  textOnAlternativeLight: string;
+  textOnAlternativeDark: string;
+
+  /**
+   * Brand surface overlay color
+   *
+   * Add 8% opacity to any brand color (eg. primary)
+   * so that it can be used a brand surface color
+   * in DARK theme mode
+   * */
+  brandSurfaceOverlay: string;
+  surfaceLightDisabled: string;
+  surfaceDarkDisabled: string;
   surface: string;
   background: string;
   error: string;
   black: string;
   white: string;
-  surfaceText: string;
-  backgroundText: string;
-  errorText: string;
+  textOnSurface: string;
+  textOnBackground: string;
+  textOnError: string;
+  textOnLightDisabled: string;
+  textOnLightHighEmphasis: string;
+  textOnLightMediEmphasis: string;
+  textOnDarkDisabled: string;
+  textOnDarkHighEmphasis: string;
+  textOnDarkMediEmphasis: string;
   grey50: string;
   grey100: string;
   grey200: string;
@@ -47,20 +65,6 @@ export function createColors<C extends MergeRecursive<C, Colors>>(
   colors: PartialRecursive<C> = {},
 ): C {
   return {
-    primary: '#6200ee',
-    primaryDark: '#3700B3',
-    secondary: '#152d4a',
-    secondaryDark: '#018786',
-    surface: '#ffffff',
-    background: '#ffffff',
-    error: '#b00020',
-    black: '#000',
-    white: '#ffffff',
-    primaryText: '#ffffff',
-    secondaryText: '#ffffff',
-    surfaceText: '#000000',
-    backgroundText: '#000000',
-    errorText: '#ffffff',
     grey50: '#fafafa',
     grey100: '#f5f5f5',
     grey200: '#eeeeee',
@@ -75,8 +79,48 @@ export function createColors<C extends MergeRecursive<C, Colors>>(
     greyA200: '#aaaaaa',
     greyA400: '#303030',
     greyA700: '#616161',
+    surfaceLightDisabled: '#0000001f',
+    surfaceDarkDisabled: '#ffffff1f',
+    textOnLightDisabled: '#00000061',
+    textOnLightHighEmphasis: '#000000de',
+    textOnLightMediEmphasis: '#00000099',
+    textOnDarkDisabled: '#ffffff61',
+    textOnDarkHighEmphasis: '#ffffffde',
+    textOnDarkMediEmphasis: '#ffffff99',
     ...colors,
   } as C;
 }
 
-export const DEFAULT_COLORS = createColors();
+export const DEFAULT_LIGHT_COLORS = createColors({
+  primary: '#6200EE',
+  primaryDark: '#3700B3',
+  secondary: '#03DAC6',
+  secondaryDark: '#018786',
+  surface: '#ffffff',
+  background: '#ffffff',
+  error: '#b00020',
+  black: '#000000',
+  white: '#ffffff',
+  textOnPrimary: '#ffffff',
+  textOnSecondary: '#ffffff',
+  textOnSurface: '#000000',
+  textOnBackground: '#000000',
+  textOnError: '#ffffff',
+});
+
+export const DEFAULT_DARK_COLORS = createColors({
+  primary: '#BB86FC',
+  primaryDark: '#3700B3',
+  secondary: '#03DAC6',
+  surface: '#121212',
+  background: '#121212',
+  error: '#CF6679',
+  black: '#000000',
+  white: '#ffffff',
+  textOnPrimary: '#000000',
+  textOnSecondary: '#000000',
+  textOnSurface: '#ffffff',
+  textOnBackground: '#ffffff',
+  textOnError: '#000000',
+  brandSurfaceOverlay: '#BB86FC14',
+});
