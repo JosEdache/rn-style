@@ -44,7 +44,7 @@ export interface Colors {
   textOnLightMediEmphasis: string;
   textOnDarkDisabled: string;
   textOnDarkHighEmphasis: string;
-  textOnDarkMediEmphasis: string;
+  textOnDarkMediumEmphasis: string;
   grey50: string;
   grey100: string;
   grey200: string;
@@ -86,7 +86,7 @@ export function createColors<C extends MergeRecursive<C, Colors>>(
     textOnLightMediEmphasis: '#00000099',
     textOnDarkDisabled: '#ffffff61',
     textOnDarkHighEmphasis: '#ffffffde',
-    textOnDarkMediEmphasis: '#ffffff99',
+    textOnDarkMediumEmphasis: '#ffffff99',
     ...colors,
   } as C;
 }

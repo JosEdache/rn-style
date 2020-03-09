@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {makeStyle, useTheme} from './styles';
+import {makeStyle, useTheme} from './hooks';
 import {surfaceOverlay, Colors, disabledStyle} from './theme';
 
 export interface SurfaceOverlayProps {

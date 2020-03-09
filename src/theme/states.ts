@@ -1,8 +1,8 @@
 import {ThemeMode} from '../types';
 import {DEFAULT_DARK_COLORS, DEFAULT_LIGHT_COLORS} from './colors';
-import {shadow, Shadow} from './shadow';
+import {shadow} from './shadow';
 
-export interface DisabledStyle extends Shadow {
+export interface DisabledStyle {
   borderWidth?: number;
   borderColor?: string;
   backgroundColor?: string;
@@ -13,6 +13,7 @@ export interface DisabledParam {
   type?: 'TEXT' | 'BOX';
   mode?: ThemeMode;
   isBrand?: boolean;
+  animated?: boolean;
 }
 
 export function disabledStyle({
@@ -26,7 +27,10 @@ export function disabledStyle({
           backgroundColor: DEFAULT_LIGHT_COLORS.surfaceLightDisabled,
           ...shadow(0),
         }
-      : {color: DEFAULT_LIGHT_COLORS.textOnLightDisabled, ...shadow(0)};
+      : {
+          color: DEFAULT_LIGHT_COLORS.textOnLightDisabled,
+          ...shadow(0),
+        };
   }
   return type === 'BOX'
     ? {
