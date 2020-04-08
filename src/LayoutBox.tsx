@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ViewStyle, ViewProps, Animated} from 'react-native';
+import {View, ViewStyle, ViewProps, Animated, StyleSheet} from 'react-native';
 import {makeStyle} from './hooks';
 import {Colors, shadow} from './theme';
 import {SurfaceOverlay, SurfaceOverlayProps} from './SurfaceOverlay';
@@ -7,6 +7,7 @@ import {SurfaceOverlay, SurfaceOverlayProps} from './SurfaceOverlay';
 export interface LayoutBoxProps extends ViewStyle, ViewProps {
   children?: React.ReactNode;
   backgroundColor?: keyof Colors;
+  borderColor?: keyof Colors;
   removeOverlay?: boolean;
   overlayBrand?: SurfaceOverlayProps['brand'];
   disabled?: boolean;
@@ -234,12 +235,16 @@ LayoutBox.defaultProps = {
 export default LayoutBox;
 
 const useStyle = makeStyle(
-  (theme, {backgroundColor, elevation, disabled, animated, ...others}) => ({
+  (
+    theme,
+    {backgroundColor, borderColor, elevation, disabled, animated, ...others},
+  ) => ({
     container: {
       ...others,
       ...(animated ? {} : shadow(elevation)),
       backgroundColor:
         theme.colors[backgroundColor as keyof Colors] || backgroundColor,
+      borderColor: theme.colors[borderColor as keyof Colors] || borderColor,
       ...(disabled && theme.mode === 'LIGHT' && !animated
         ? theme.disabledStyle()
         : {}),

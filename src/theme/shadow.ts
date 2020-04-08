@@ -5,15 +5,15 @@ type ShadowNumber = number | Animated.Value;
 export interface Shadow {
   shadowColor: string;
   shadowOffset: {
-    width: ShadowNumber;
-    height: number | Animated.AnimatedMultiplication;
+    width: number;
+    height: number;
   };
-  shadowOpacity: ShadowNumber;
-  shadowRadius: number | Animated.AnimatedMultiplication;
+  shadowOpacity: number;
+  shadowRadius: number;
 }
 
 export interface Elevation {
-  elevation: ShadowNumber;
+  elevation: number;
 }
 
 const animatedHeight = new Animated.Value(0.5);
@@ -24,7 +24,7 @@ const animatedWidth = new Animated.Value(0);
 export function shadow(
   elevation: number | Animated.Value = 0,
 ): Shadow | Elevation {
-  return Platform.OS === 'android'
+  return (Platform.OS === 'android'
     ? {
         elevation,
       }
@@ -43,7 +43,7 @@ export function shadow(
         },
         shadowOpacity: animatedOpacity,
         shadowRadius: Animated.multiply(animatedRadius, elevation),
-      };
+      }) as Shadow | Elevation;
 }
 
 export function overlay(opacity: number) {

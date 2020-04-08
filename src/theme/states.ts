@@ -25,10 +25,12 @@ export function disabledStyle({
     return type === 'BOX'
       ? {
           backgroundColor: DEFAULT_LIGHT_COLORS.surfaceLightDisabled,
+          borderColor: DEFAULT_DARK_COLORS.surfaceLightDisabled,
           ...shadow(0),
         }
       : {
           color: DEFAULT_LIGHT_COLORS.textOnLightDisabled,
+          borderColor: DEFAULT_DARK_COLORS.surfaceLightDisabled,
           ...shadow(0),
         };
   }
@@ -43,6 +45,7 @@ export function disabledStyle({
       }
     : {
         color: DEFAULT_DARK_COLORS.textOnDarkDisabled,
+        borderColor: DEFAULT_DARK_COLORS.surfaceDarkDisabled,
         ...shadow(0),
       };
 }

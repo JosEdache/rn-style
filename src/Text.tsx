@@ -10,6 +10,7 @@ import {Colors, Typography, shadow} from './theme';
 export interface TextProps extends TextStyle, RNTextProps {
   children?: React.ReactNode;
   backgroundColor?: keyof Colors;
+  borderColor?: keyof Colors;
   category?: keyof Omit<
     Typography,
     | 'fontFamily'
@@ -21,7 +22,6 @@ export interface TextProps extends TextStyle, RNTextProps {
   >;
   color?: keyof Colors;
   disabled?: boolean;
-  style?: TextStyle;
 }
 
 export function Text(props: TextProps) {
@@ -274,6 +274,7 @@ const useStyle = makeStyle(
     theme,
     {
       backgroundColor,
+      borderColor,
       color,
       fontFamily,
       fontSize,
@@ -289,6 +290,7 @@ const useStyle = makeStyle(
   ) => ({
     text: {
       backgroundColor: theme.colors[backgroundColor!] || backgroundColor,
+      borderColor: theme.colors[borderColor!] || borderColor,
       ...(theme.typography[category!] as any),
       fontFamily: fontFamily || theme.typography[category!].fontFamily,
       fontSize: fontSize || theme.typography[category!].fontSize,
