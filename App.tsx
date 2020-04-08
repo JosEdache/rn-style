@@ -7,17 +7,8 @@ import ElevationDemo from './demo/Elevations';
 import ColorDemo from './demo/Colors';
 import TypographyDemo from './demo/Typography';
 
-declare global {
-  interface Theme {
-    lack: '';
-  }
-}
-
 const appTheme = createTheme({
-  lack: '',
-  colors: {
-    primary: 'tomato',
-  },
+  mode: 'LIGHT',
 });
 
 const routes: any[] = [ElevationDemo, ColorDemo, TypographyDemo];
