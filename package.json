@@ -1,6 +1,6 @@
 {
   "name": "@josedache/rn-style",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "lib/index.js",
   "types": "lib/typings/index.d.ts",
   "module": "lib/index.js",
@@ -20,12 +20,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/JosEdache/rn-style"
+    "url": "https://github.com/josedache/rn-style"
   },
   "author": {
     "name": "Edache Joseph",
     "email": "josedache0@gmail.com",
-    "url": "https://github.com/JosEdache/rn-style"
+    "url": "https://github.com/josedache/rn-style"
   },
   "peerDependencies": {
     "react": "^16.8.0",

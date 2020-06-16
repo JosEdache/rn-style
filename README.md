@@ -263,7 +263,7 @@ import {View, Text} from 'react-native';
 import {useTheme} from '@josedache/rn-style';
 
 export default function Card() { 
-    const theme = useTheme({cardHeight: 200'})
+    const theme = useTheme({cardHeight: 200})
     return (
         <View style={{backgroundColor: theme.colors.primary, height: theme.cardHeight}}>
             <Text>Hello rn-style!</Text>
