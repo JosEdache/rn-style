@@ -6,7 +6,7 @@ import {
   SurfaceOverlay,
   LayoutBox,
   Text as StyledText,
-} from '@josedache/rn-style';
+} from '../src';
 
 function Elevations() {
   const styles = useStyle();

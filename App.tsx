@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import {Button} from 'react-native';
-import {createTheme, ThemeProvider} from '@josedache/rn-style';
+import {createTheme, ThemeProvider} from './src';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import ElevationDemo from './demo/Elevations';

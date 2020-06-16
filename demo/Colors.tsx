@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {makeStyle, shadow} from '@josedache/rn-style';
+import {makeStyle, shadow} from '../src';
 
 function Colors() {
   const styles = useStyle();
