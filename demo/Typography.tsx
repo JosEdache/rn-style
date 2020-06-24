@@ -1,11 +1,10 @@
 import React from 'react';
-import {} from 'react-native';
-import {PlatformTouch, LayoutBox, Text} from '../src';
+import {PlatformTouch, LayoutBox, Typography} from '../src';
 
-function Typography() {
+function TypographyDemo() {
   return (
     <LayoutBox flex={1} padding={16}>
-      <Text>Typography</Text>
+      <Typography fontSize={20}>Typography</Typography>
       <LayoutBox flexDirection="row" height={200} backgroundColor="primary">
         <PlatformTouch
           // width={100}
@@ -18,13 +17,13 @@ function Typography() {
           justifyContent="center"
           backgroundColor="secondary"
           onPress={() => console.log('Press')}>
-          <Text>Typography</Text>
+          <Typography>Typography</Typography>
         </PlatformTouch>
       </LayoutBox>
     </LayoutBox>
   );
 }
 
-Typography.routeName = 'Typograph Demo';
+TypographyDemo.routeName = 'Typograph Demo';
 
-export default Typography;
+export default TypographyDemo;

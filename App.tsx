@@ -1,17 +1,11 @@
 import React, {Fragment} from 'react';
 import {Button} from 'react-native';
-import {createTheme, ThemeProvider} from './src';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import ElevationDemo from './demo/Elevations';
-import ColorDemo from './demo/Colors';
 import TypographyDemo from './demo/Typography';
 
-const appTheme = createTheme({
-  mode: 'LIGHT',
-});
-
-const routes: any[] = [ElevationDemo, ColorDemo, TypographyDemo];
+const routes: any[] = [ElevationDemo, TypographyDemo];
 
 function Home(props: any) {
   return (
@@ -31,20 +25,18 @@ const Stack = createStackNavigator();
 
 function App() {
   return (
-    <ThemeProvider theme={appTheme}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={Home} />
-          {routes.map(route => (
-            <Stack.Screen
-              key={route.routeName}
-              name={route.routeName}
-              component={route}
-            />
-          ))}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ThemeProvider>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+        {routes.map(route => (
+          <Stack.Screen
+            key={route.routeName}
+            name={route.routeName}
+            component={route}
+          />
+        ))}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

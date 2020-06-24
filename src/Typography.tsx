@@ -1,15 +1,37 @@
 import React, {useMemo, memo} from 'react';
-import {View, ViewStyle, ViewProps, Animated} from 'react-native';
+import {Text, TextProps, TextStyle} from 'react-native';
 import {makeStyle} from './hooks';
 import shadow from './shadow';
 
-export interface LayoutBoxProps extends ViewStyle, ViewProps {
+export interface TypographyProps extends TextStyle, TextProps {
   children?: React.ReactNode;
-  animated?: boolean;
 }
 
-function LB(props: LayoutBoxProps) {
+function TG(props: TypographyProps) {
   const {
+    color,
+    fontFamily,
+    fontSize,
+    fontStyle,
+    fontWeight,
+    letterSpacing,
+    lineHeight,
+    textAlign,
+    textDecorationLine,
+    textDecorationStyle,
+    textDecorationColor,
+    textShadowColor,
+    textShadowOffset,
+    textShadowRadius,
+    textTransform,
+    // testID,
+
+    fontVariant,
+    writingDirection,
+
+    textAlignVertical,
+    includeFontPadding,
+
     backfaceVisibility,
     backgroundColor,
     borderBottomColor,
@@ -30,7 +52,6 @@ function LB(props: LayoutBoxProps) {
     borderTopRightRadius,
     borderTopStartRadius,
     opacity,
-    // testID,
     elevation,
 
     alignContent,
@@ -99,13 +120,35 @@ function LB(props: LayoutBoxProps) {
     scaleY,
     translateX,
     translateY,
-    animated,
+
     style,
     ...others
   } = props;
-
   const styleProps = useMemo(
     () => ({
+      color,
+      fontFamily,
+      fontSize,
+      fontStyle,
+      fontWeight,
+      letterSpacing,
+      lineHeight,
+      textAlign,
+      textDecorationLine,
+      textDecorationStyle,
+      textDecorationColor,
+      textShadowColor,
+      textShadowOffset,
+      textShadowRadius,
+      textTransform,
+      // testID,
+
+      fontVariant,
+      writingDirection,
+
+      textAlignVertical,
+      includeFontPadding,
+
       backfaceVisibility,
       backgroundColor,
       borderBottomColor,
@@ -126,7 +169,6 @@ function LB(props: LayoutBoxProps) {
       borderTopRightRadius,
       borderTopStartRadius,
       opacity,
-      // testID,
       elevation,
 
       alignContent,
@@ -195,13 +237,11 @@ function LB(props: LayoutBoxProps) {
       scaleY,
       translateX,
       translateY,
-      animated,
     }),
     [
       alignContent,
       alignItems,
       alignSelf,
-      animated,
       aspectRatio,
       backfaceVisibility,
       backgroundColor,
@@ -230,6 +270,7 @@ function LB(props: LayoutBoxProps) {
       borderTopWidth,
       borderWidth,
       bottom,
+      color,
       direction,
       display,
       elevation,
@@ -240,9 +281,17 @@ function LB(props: LayoutBoxProps) {
       flexGrow,
       flexShrink,
       flexWrap,
+      fontFamily,
+      fontSize,
+      fontStyle,
+      fontVariant,
+      fontWeight,
       height,
+      includeFontPadding,
       justifyContent,
       left,
+      letterSpacing,
+      lineHeight,
       margin,
       marginBottom,
       marginEnd,
@@ -277,30 +326,34 @@ function LB(props: LayoutBoxProps) {
       shadowOpacity,
       shadowRadius,
       start,
+      textAlign,
+      textAlignVertical,
+      textDecorationColor,
+      textDecorationLine,
+      textDecorationStyle,
+      textShadowColor,
+      textShadowOffset,
+      textShadowRadius,
+      textTransform,
       top,
       transform,
       transformMatrix,
       translateX,
       translateY,
       width,
+      writingDirection,
       zIndex,
     ],
   );
   const styles = useStyle(styleProps);
-  const Container = animated ? Animated.View : View;
-  return <Container {...others} style={[styles.container, style]} />;
+  return <Text {...others} style={[styles.text, style]} />;
 }
 
-LB.defaultProps = {
-  animated: false,
-  elevation: 0,
-};
-
-export const LayoutBox = memo(LB);
-export default LayoutBox;
+export const Typography = memo(TG);
+export default Typography;
 
 const useStyle = makeStyle(({elevation, ...others}) => ({
-  container: {
+  text: {
     ...others,
     ...shadow(elevation),
   },

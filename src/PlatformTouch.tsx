@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {
   Platform,
   TouchableOpacity,
@@ -32,7 +32,7 @@ const Touch: Overload = (
   return <TouchableOpacity {...props} />;
 };
 
-export function PlatformTouch(props: PlatformTouchProps) {
+function PT(props: PlatformTouchProps) {
   const {
     delayLongPress,
     delayPressIn,
@@ -264,8 +264,9 @@ export function PlatformTouch(props: PlatformTouchProps) {
   );
 }
 
-PlatformTouch.defaultProps = {
+PT.defaultProps = {
   outerDirection: 'column',
 };
 
+export const PlatformTouch = memo(PT);
 export default PlatformTouch;
