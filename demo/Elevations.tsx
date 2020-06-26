@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, ScrollView, Animated} from 'react-native';
-import {makeStyle, shadow, LayoutBox, Typography} from '../src';
+import {makeStyle, shadow, StyleView, StyleText} from '../src';
 
 const elevation = new Animated.Value(0);
 
@@ -12,13 +12,15 @@ function Elevations() {
   }).start();
   return (
     <ScrollView style={styles.container}>
-      <View style={[styles.elevation_container, shadow(0)]}>
+      <StyleView
+        animated
+        style={[styles.elevation_container, shadow(elevation)]}>
         <Text>Elevation 0</Text>
-      </View>
+      </StyleView>
       <View style={[styles.elevation_container, shadow(1)]}>
         <Text>Elevation 1</Text>
       </View>
-      <LayoutBox
+      <StyleView
         animated
         height={100}
         justifyContent="center"
@@ -27,8 +29,8 @@ function Elevations() {
         backgroundColor="white"
         borderRadius={8}
         elevation={elevation}>
-        <Typography>Elevation 2</Typography>
-      </LayoutBox>
+        <StyleText>Elevation 2</StyleText>
+      </StyleView>
       <View style={[styles.elevation_container, shadow(3)]}>
         <Text>Elevation 3</Text>
       </View>

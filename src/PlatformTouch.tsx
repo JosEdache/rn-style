@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React from 'react';
 import {
   Platform,
   TouchableOpacity,
@@ -7,7 +7,7 @@ import {
   TouchableOpacityProps,
   ViewStyle,
 } from 'react-native';
-import {LayoutBox, LayoutBoxProps} from './LayoutBox';
+import {StyleView, StyleViewProps} from './StyleView';
 
 export type Overload = {
   (props: TouchableNativeFeedbackProps): JSX.Element;
@@ -15,7 +15,7 @@ export type Overload = {
 };
 
 export interface PlatformTouchProps
-  extends LayoutBoxProps,
+  extends StyleViewProps,
     TouchableNativeFeedbackProps,
     TouchableOpacityProps {
   outerStyle?: ViewStyle;
@@ -32,7 +32,7 @@ const Touch: Overload = (
   return <TouchableOpacity {...props} />;
 };
 
-function PT(props: PlatformTouchProps) {
+export function PlatformTouch(props: PlatformTouchProps) {
   const {
     delayLongPress,
     delayPressIn,
@@ -144,11 +144,10 @@ function PT(props: PlatformTouchProps) {
   } = props;
 
   return (
-    <LayoutBox
+    <StyleView
       style={outerStyle}
       overflow={overflow || 'hidden'}
       flexDirection={outerDirection}
-      // alignItems="stretch"
       {...{
         backfaceVisibility,
         backgroundColor,
@@ -253,20 +252,19 @@ function PT(props: PlatformTouchProps) {
 
           activeOpacity,
         }}>
-        <LayoutBox
+        <StyleView
           {...{maxHeight, maxWidth, minHeight, minWidth, width, height, flex}}
           {...others}
           style={innerStyle}>
           {children}
-        </LayoutBox>
+        </StyleView>
       </Touch>
-    </LayoutBox>
+    </StyleView>
   );
 }
 
-PT.defaultProps = {
+PlatformTouch.defaultProps = {
   outerDirection: 'column',
 };
 
-export const PlatformTouch = memo(PT);
 export default PlatformTouch;

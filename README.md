@@ -1,6 +1,6 @@
 # rn-style
 
-A react native library for styling View and Text components using props instead of StyleSheet.create function directly
+A react native library for styling View and Text components using props or hook function instead of StyleSheet.create function directly
 
 ## Features
 
@@ -23,15 +23,15 @@ A react native library for styling View and Text components using props instead 
 
 ```javascript
 import React from 'react';
-import {LayoutBox, Typography} from '@josedache/rn-style';
+import {StyleView, StyleText} from '@josedache/rn-style';
 
 function App() {
   return (
-    <LayoutBox width={200} height={300}>
+    <StyleView width={200} height={300}>
       // accepts ViewProps and ViewStyle as props
-      <Typography color="primary">Hello rn-style!</Typography> // accepts TextProps
+      <StyleText color="primary">Hello rn-style!</StyleText> // accepts TextProps
       and TextStyle as props
-    </LayoutBox>
+    </StyleView>
   );
 }
 
@@ -40,13 +40,13 @@ export default App;
 
 #### Using PlatformTouch component
 
-Accepts LayoutBox props and TouchableNativeFeedbackProps (android) or TouchableOpacityProps (ios)
+Accepts StyleView props and TouchableNativeFeedbackProps (android) or TouchableOpacityProps (ios)
 
-> **Note** pass outerDirection='row' which sets the outer LayoutBox flexDirection to row to help the inner LayoutBox align well when the parent of the PlatformTouch component has flexDirection row and vise versa
+> **Note** pass outerDirection='row' which sets the outer StyleView flexDirection to row to help the inner StyleView align well when the parent of the PlatformTouch component has flexDirection row and vise versa
 
 ```javascript
 import React from 'react';
-import {PlatformTouch, Typography} from '@josedache/rn-style';
+import {PlatformTouch, StyleText} from '@josedache/rn-style';
 
 export default function Button({text}) {
   return (
@@ -57,7 +57,7 @@ export default function Button({text}) {
       justifyContent="center"
       backgroundColor="secondary"
       onPress={() => console.log('Press')}>
-      <Typography>{text}</Typography>
+      <StyleText>{text}</StyleText>
     </PlatformTouch>
   );
 }
@@ -92,14 +92,14 @@ const useStyle = makeStyle((props) => ({
 }))
 ```
 
-#### Creating elevation using shadow function or LayoutBox elevation prop
+#### Creating elevation using shadow function or StyleView elevation prop
 
 > Works for both ios and android
 
 ```javascript
 import React from 'react';
 import {View, Text} from 'react-native';
-import {shadow, LayoutBox} from '@josedache/rn-style';
+import {shadow, StyleView} from '@josedache/rn-style';
 
 export default function Card() {
     return (
@@ -108,9 +108,9 @@ export default function Card() {
         </View>
 
 
-        <LayoutBox elevation={2} backgroundColor='secondary'>
+        <StyleView elevation={2} backgroundColor='secondary'>
             <Text>Hello rn-style!</Text>
-        </LayoutBox>
+        </StyleView>
     )
 }
 ```
@@ -123,10 +123,24 @@ export default function Card() {
 - [TextStyle](https://reactnative.dev/docs/text-style-props)
 - [ViewProps](https://reactnative.dev/docs/view#props)
 - [TextProps](https://reactnative.dev/docs/text#props)
+- [TextInputProps](https://reactnative.dev/docs/textinput#props)
 
 > **Note** elevation prop can be used to pass elevation or shadow for both android and ios. but ios can be customized using the neccessary style props.
 
-### LayoutBox
+### StyleProvider
+
+Context Provider for setting default values for some component
+
+#### value props
+
+```javascript
+{
+  // sets the default fontFamily for both StyleText and StyleTextInput component
+  fontFamily: string; 
+}
+```
+
+### StyleView
 
 Accepts all ViewStyle properties and ViewProps as props
 
@@ -138,7 +152,7 @@ Accepts all ViewStyle properties and ViewProps as props
 }
 ```
 
-### Typography
+### StyleText
 
 Accepts all TextStyle properties and TextProps as props
 
@@ -149,17 +163,28 @@ Accepts all TextStyle properties and TextProps as props
 }
 ```
 
-### PlatformTouch
+### StyleTextInput
 
-Accepts [LayoutBox](#LayoutBox) props and TouchableNativeFeedbackProps (android) or TouchableOpacityProps (ios) as props
+Accepts all TextStyle properties and TextInputProps as props
 
 #### additional
 
 ```javascript
 {
-    outerDirection: ViewStyle['flex-direction'], //  Sets the outer LayoutBox flexDirection to row. default to 'column',
-    outerStyle: ViewStyle, // style to be used for the outer LayoutBox
-    innerStyle: ViewStyle, // style to be used for the inner LayoutBox
+}
+```
+
+### PlatformTouch
+
+Accepts [StyleView](#StyleView) props and TouchableNativeFeedbackProps (android) or TouchableOpacityProps (ios) as props
+
+#### additional
+
+```javascript
+{
+    outerDirection: ViewStyle['flex-direction'], //  Sets the outer StyleView flexDirection to row. default to 'column',
+    outerStyle: ViewStyle, // style to be used for the outer StyleView
+    innerStyle: ViewStyle, // style to be used for the inner StyleView
 }
 ```
 

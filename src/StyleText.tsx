@@ -1,15 +1,39 @@
-import React, {useMemo, memo} from 'react';
-import {View, ViewStyle, ViewProps, Animated} from 'react-native';
-import {makeStyle} from './hooks';
+import React, {forwardRef} from 'react';
+import {Text, TextProps, TextStyle} from 'react-native';
+// import {makeStyle} from './hooks';
 import shadow from './shadow';
+import {useStyleContext} from './Context';
 
-export interface LayoutBoxProps extends ViewStyle, ViewProps {
+export interface StyleTextProps extends TextStyle, TextProps {
   children?: React.ReactNode;
-  animated?: boolean;
 }
 
-function LB(props: LayoutBoxProps) {
+export const StyleText = forwardRef<Text, StyleTextProps>((props, ref) => {
+  const defaultFontFamily = useStyleContext().fontFamily;
   const {
+    color,
+    fontFamily = defaultFontFamily,
+    fontSize,
+    fontStyle,
+    fontWeight,
+    letterSpacing,
+    lineHeight,
+    textAlign,
+    textDecorationLine,
+    textDecorationStyle,
+    textDecorationColor,
+    textShadowColor,
+    textShadowOffset,
+    textShadowRadius,
+    textTransform,
+    // testID,
+
+    fontVariant,
+    writingDirection,
+
+    textAlignVertical,
+    includeFontPadding,
+
     backfaceVisibility,
     backgroundColor,
     borderBottomColor,
@@ -30,7 +54,6 @@ function LB(props: LayoutBoxProps) {
     borderTopRightRadius,
     borderTopStartRadius,
     opacity,
-    // testID,
     elevation,
 
     alignContent,
@@ -99,110 +122,36 @@ function LB(props: LayoutBoxProps) {
     scaleY,
     translateX,
     translateY,
-    animated,
+
     style,
     ...others
   } = props;
 
-  const styleProps = useMemo(
-    () => ({
-      backfaceVisibility,
-      backgroundColor,
-      borderBottomColor,
-      borderBottomEndRadius,
-      borderBottomLeftRadius,
-      borderBottomRightRadius,
-      borderBottomStartRadius,
-      borderColor,
-      borderEndColor,
-      borderLeftColor,
-      borderRadius,
-      borderRightColor,
-      borderStartColor,
-      borderStyle,
-      borderTopColor,
-      borderTopEndRadius,
-      borderTopLeftRadius,
-      borderTopRightRadius,
-      borderTopStartRadius,
-      opacity,
+  const styles = [
+    {
+      color,
+      fontFamily,
+      fontSize,
+      fontStyle,
+      fontWeight,
+      letterSpacing,
+      lineHeight,
+      textAlign,
+      textDecorationLine,
+      textDecorationStyle,
+      textDecorationColor,
+      textShadowColor,
+      textShadowOffset,
+      textShadowRadius,
+      textTransform,
       // testID,
-      elevation,
 
-      alignContent,
-      alignItems,
-      alignSelf,
-      aspectRatio,
-      borderBottomWidth,
-      borderEndWidth,
-      borderLeftWidth,
-      borderRightWidth,
-      borderStartWidth,
-      borderTopWidth,
-      borderWidth,
-      bottom,
-      display,
-      end,
-      flex,
-      flexBasis,
-      flexDirection,
-      flexGrow,
-      flexShrink,
-      flexWrap,
-      height,
-      justifyContent,
-      left,
-      margin,
-      marginBottom,
-      marginEnd,
-      marginHorizontal,
-      marginLeft,
-      marginRight,
-      marginStart,
-      marginTop,
-      marginVertical,
-      maxHeight,
-      maxWidth,
-      minHeight,
-      minWidth,
-      overflow,
-      padding,
-      paddingBottom,
-      paddingEnd,
-      paddingHorizontal,
-      paddingLeft,
-      paddingRight,
-      paddingStart,
-      paddingTop,
-      paddingVertical,
-      position,
-      right,
-      start,
-      top,
-      width,
-      zIndex,
-      direction,
+      fontVariant,
+      writingDirection,
 
-      shadowColor,
-      shadowOffset,
-      shadowOpacity,
-      shadowRadius,
+      textAlignVertical,
+      includeFontPadding,
 
-      transform,
-      transformMatrix,
-      rotation,
-      scaleX,
-      scaleY,
-      translateX,
-      translateY,
-      animated,
-    }),
-    [
-      alignContent,
-      alignItems,
-      alignSelf,
-      animated,
-      aspectRatio,
       backfaceVisibility,
       backgroundColor,
       borderBottomColor,
@@ -210,29 +159,35 @@ function LB(props: LayoutBoxProps) {
       borderBottomLeftRadius,
       borderBottomRightRadius,
       borderBottomStartRadius,
-      borderBottomWidth,
       borderColor,
       borderEndColor,
-      borderEndWidth,
       borderLeftColor,
-      borderLeftWidth,
       borderRadius,
       borderRightColor,
-      borderRightWidth,
       borderStartColor,
-      borderStartWidth,
       borderStyle,
       borderTopColor,
       borderTopEndRadius,
       borderTopLeftRadius,
       borderTopRightRadius,
       borderTopStartRadius,
+      opacity,
+      // elevation,
+      ...shadow(elevation),
+
+      alignContent,
+      alignItems,
+      alignSelf,
+      aspectRatio,
+      borderBottomWidth,
+      borderEndWidth,
+      borderLeftWidth,
+      borderRightWidth,
+      borderStartWidth,
       borderTopWidth,
       borderWidth,
       bottom,
-      direction,
       display,
-      elevation,
       end,
       flex,
       flexBasis,
@@ -256,7 +211,6 @@ function LB(props: LayoutBoxProps) {
       maxWidth,
       minHeight,
       minWidth,
-      opacity,
       overflow,
       padding,
       paddingBottom,
@@ -269,39 +223,35 @@ function LB(props: LayoutBoxProps) {
       paddingVertical,
       position,
       right,
-      rotation,
-      scaleX,
-      scaleY,
+      start,
+      top,
+      width,
+      zIndex,
+      direction,
+
       shadowColor,
       shadowOffset,
       shadowOpacity,
       shadowRadius,
-      start,
-      top,
+
       transform,
       transformMatrix,
+      rotation,
+      scaleX,
+      scaleY,
       translateX,
       translateY,
-      width,
-      zIndex,
-    ],
-  );
-  const styles = useStyle(styleProps);
-  const Container = animated ? Animated.View : View;
-  return <Container {...others} style={[styles.container, style]} />;
-}
+    },
+    style,
+  ];
+  return <Text ref={ref} {...others} style={styles} />;
+});
 
-LB.defaultProps = {
-  animated: false,
-  elevation: 0,
-};
+export default StyleText;
 
-export const LayoutBox = memo(LB);
-export default LayoutBox;
-
-const useStyle = makeStyle(({elevation, ...others}) => ({
-  container: {
-    ...others,
-    ...shadow(elevation),
-  },
-}));
+// const useStyle = makeStyle(({elevation, ...others}) => ({
+//   text: {
+//     ...others,
+//     ...shadow(elevation),
+//   },
+// }));

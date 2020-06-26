@@ -3,7 +3,7 @@ import {Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import ElevationDemo from './demo/Elevations';
-import TypographyDemo from './demo/Typography';
+import TypographyDemo from './demo/Styles';
 
 const routes: any[] = [ElevationDemo, TypographyDemo];
 

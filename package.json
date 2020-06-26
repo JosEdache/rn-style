@@ -1,6 +1,6 @@
 {
   "name": "@josedache/rn-style",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "main": "lib/index.js",
   "types": "lib/typings/index.d.ts",
   "module": "lib/index.js",
