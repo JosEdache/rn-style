@@ -9,19 +9,17 @@ function Elevations() {
   Animated.timing(elevation, {
     toValue: 5,
     duration: 2000,
+    useNativeDriver: false,
   }).start();
   return (
     <ScrollView style={styles.container}>
-      <StyleView
-        animated
-        style={[styles.elevation_container, shadow(elevation)]}>
+      {/* <StyleView style={[styles.elevation_container, shadow(elevation)]}>
         <Text>Elevation 0</Text>
-      </StyleView>
+      </StyleView> */}
       <View style={[styles.elevation_container, shadow(1)]}>
         <Text>Elevation 1</Text>
       </View>
-      <StyleView
-        animated
+      {/* <StyleView
         height={100}
         justifyContent="center"
         alignItems="center"
@@ -30,7 +28,7 @@ function Elevations() {
         borderRadius={8}
         elevation={elevation}>
         <StyleText>Elevation 2</StyleText>
-      </StyleView>
+      </StyleView> */}
       <View style={[styles.elevation_container, shadow(3)]}>
         <Text>Elevation 3</Text>
       </View>
