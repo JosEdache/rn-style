@@ -1,16 +1,11 @@
 import {StyleSheet} from 'react-native';
 
-/**
- * @param styles
- * @param props
- * @param styleKey
- */
-export function composeProps(
-  styles: any = {},
-  props: {[x: string]: any} = {},
-  styleKey = 'style',
-) {
-  return {...props, [styleKey]: StyleSheet.flatten([styles, props[styleKey]])};
+export function composeProps<P = {}, S = {}>(
+  props = {} as P,
+  style = {} as S,
+  styleKey = 'style' as keyof P,
+): P {
+  return {...props, [styleKey]: StyleSheet.flatten([style, props[styleKey]])};
 }
 
 export default composeProps;

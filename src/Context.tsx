@@ -1,21 +1,56 @@
 import React, {createContext, useContext} from 'react';
+import {
+  StyleProp,
+  ViewStyle,
+  ImageStyle,
+  TextStyle,
+  ViewProps,
+  TextProps,
+  TextInputProps,
+  ImageProps,
+  ImageBackgroundProps,
+  ScrollViewProps,
+  FlatListProps,
+  SectionListProps,
+  VirtualizedListProps,
+  TouchableHighlightProps,
+  TouchableOpacityProps,
+  TouchableNativeFeedbackProps,
+  TouchableWithoutFeedbackProps,
+} from 'react-native';
 
-interface StyleContextValue {
-  fontFamily?: string;
+type DefaultStyle<P, S> = StyleProp<S> | ((props: P) => StyleProp<S>);
+
+export interface StyleProviderProps {
+  [x: string]: any;
+  viewStyle?: DefaultStyle<ViewProps, ViewStyle>;
+  textStyle?: DefaultStyle<TextProps, TextStyle>;
+  textInputStyle?: DefaultStyle<TextInputProps, TextStyle>;
+  imageStyle?: DefaultStyle<ImageProps, ImageStyle>;
+  imageBackgroundStyle?: DefaultStyle<ImageBackgroundProps, ViewStyle>;
+  scrollViewStyle?: DefaultStyle<ScrollViewProps, ViewStyle>;
+  flatListStyle?: DefaultStyle<FlatListProps<unknown>, ViewStyle>;
+  sectionListStyle?: DefaultStyle<SectionListProps<unknown>, ViewStyle>;
+  virtualizedListStyle?: DefaultStyle<VirtualizedListProps<unknown>, ViewStyle>;
+  touchableHighlightStyle?: DefaultStyle<TouchableHighlightProps, ViewStyle>;
+  touchableOpacityStyle?: DefaultStyle<TouchableOpacityProps, ViewStyle>;
+  touchableNativeFeedbackStyle?: DefaultStyle<
+    TouchableNativeFeedbackProps,
+    ViewStyle
+  >;
+  touchableWithoutFeedbackStyle?: DefaultStyle<
+    TouchableWithoutFeedbackProps,
+    ViewStyle
+  >;
 }
 
-interface StyleContextProps {
-  children?: React.ReactNode;
-  value?: StyleContextValue;
-}
-
-export const StyleContext = createContext<StyleContextValue>({});
+export const StyleContext = createContext<StyleProviderProps>(undefined!);
 export const StyleConsumer = StyleContext.Consumer;
 
-export function StyleProvider(props: StyleContextProps) {
-  const {children, value = {}} = props;
+export function StyleProvider(props: StyleProviderProps) {
+  const {children, ...others} = props;
   return (
-    <StyleContext.Provider value={value}>{children}</StyleContext.Provider>
+    <StyleContext.Provider value={others}>{children}</StyleContext.Provider>
   );
 }
 

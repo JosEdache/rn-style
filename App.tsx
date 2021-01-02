@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import {Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {StyleProvider} from './src';
 import ElevationDemo from './demo/Elevations';
 import TypographyDemo from './demo/Styles';
 
@@ -25,18 +26,20 @@ const Stack = createStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        {routes.map(route => (
-          <Stack.Screen
-            key={route.routeName}
-            name={route.routeName}
-            component={route}
-          />
-        ))}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <StyleProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home} />
+          {routes.map((route) => (
+            <Stack.Screen
+              key={route.routeName}
+              name={route.routeName}
+              component={route}
+            />
+          ))}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </StyleProvider>
   );
 }
 

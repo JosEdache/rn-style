@@ -1,25 +1,31 @@
 import React from 'react';
-import {View, Text, ScrollView, Animated} from 'react-native';
-import {makeStyle, shadow, StyleView, StyleText} from '../src';
+import {View, Text, Animated, StyleSheet} from 'react-native';
+import {shadow, StyleView, StyleText, StyleScrollView} from '../src';
 
-const elevation = new Animated.Value(0);
+const AnimatedStyleView = Animated.createAnimatedComponent(StyleView);
 
 function Elevations() {
-  const styles = useStyle();
+  const elevation = React.useRef(new Animated.Value(0)).current;
+
   Animated.timing(elevation, {
     toValue: 5,
     duration: 2000,
     useNativeDriver: false,
   }).start();
+
   return (
-    <ScrollView style={styles.container}>
-      {/* <StyleView style={[styles.elevation_container, shadow(elevation)]}>
-        <Text>Elevation 0</Text>
-      </StyleView> */}
+    <StyleScrollView style={styles.container} backgroundColor="pink">
+      <AnimatedStyleView
+        style={[styles.elevation_container, shadow(elevation)]}>
+        <StyleText>Elevation 0</StyleText>
+      </AnimatedStyleView>
+      {/* <View elevation={12} borderWidth={1} backgroundColor='pink'>
+        <Text>Text</Text>
+      </View> */}
       <View style={[styles.elevation_container, shadow(1)]}>
         <Text>Elevation 1</Text>
       </View>
-      {/* <StyleView
+      <AnimatedStyleView
         height={100}
         justifyContent="center"
         alignItems="center"
@@ -28,7 +34,7 @@ function Elevations() {
         borderRadius={8}
         elevation={elevation}>
         <StyleText>Elevation 2</StyleText>
-      </StyleView> */}
+      </AnimatedStyleView>
       <View style={[styles.elevation_container, shadow(3)]}>
         <Text>Elevation 3</Text>
       </View>
@@ -44,14 +50,14 @@ function Elevations() {
       <View style={[styles.elevation_container, shadow(7)]}>
         <Text>Elevation 7</Text>
       </View>
-    </ScrollView>
+    </StyleScrollView>
   );
 }
 
-const useStyle = makeStyle(() => ({
+const styles = StyleSheet.create({
   container: {
     padding: 8,
-    backgroundColor: 'yellow',
+    // backgroundColor: 'yellow',
     borderRadius: 8,
   },
   elevation_container: {
@@ -62,7 +68,7 @@ const useStyle = makeStyle(() => ({
     justifyContent: 'center',
     backgroundColor: 'white',
   },
-}));
+});
 
 Elevations.routeName = 'Elevation Demo';
 
