@@ -44,3 +44,19 @@ export const StyleSectionList = nativeStyleEnhancers.SectionList((_, ctx) =>
 export const StyleVirtualizedList = nativeStyleEnhancers.VirtualizedList(
   (_, ctx) => composeInitialStyle(_, ctx.virtualizedListStyle),
 );
+
+export const StyleTouchableHighlight = nativeStyleEnhancers.TouchableHighlight(
+  (_, ctx) => composeInitialStyle(_, ctx.touchableHighlightStyle),
+);
+
+export const StyleTouchableNativeFeedback = nativeStyleEnhancers.TouchableNativeFeedback(
+  (_, ctx) => composeInitialStyle(_, ctx.touchableNativeFeedbackStyle),
+);
+
+export const StyleTouchableOpacity = nativeStyleEnhancers.TouchableOpacity(
+  (_, ctx) => composeInitialStyle(_, ctx.touchableOpacityStyle),
+);
+
+export const StyleTouchableWithoutFeedback = nativeStyleEnhancers.TouchableWithoutFeedback(
+  (_, ctx) => composeInitialStyle(_, ctx.touchableWithoutFeedbackStyle),
+);

@@ -1,6 +1,6 @@
 {
   "name": "@josedache/rn-style",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "main": "lib/index.js",
   "types": "lib/typings/index.d.ts",
   "module": "lib/index.js",
@@ -10,6 +10,7 @@
     "test": "jest --watchAll",
     "lint": "eslint .",
     "tsc": "rm -rf lib && tsc",
+    "prepack": "rm -rf josedache-*",
     "build": "yarn run tsc && rm -rf /home/edache/.cache/yarn/v6/.tmp && yarn remove @josedache/rn-style && yarn cache clean @josedache/rn-style && rm -rf josedache-* && yarn pack && yarn add -D ./josedache-rn-style-v1.0.3.tgz"
   },
   "files": [
@@ -24,6 +25,17 @@
     "email": "josedache0@gmail.com",
     "url": "https://github.com/josedache/rn-style"
   },
+  "keywords": [
+    "react",
+    "react-native",
+    "react-native-web",
+    "react-native-style",
+    "rn-style",
+    "jsxstyle",
+    "styled-components",
+    "css-in-js",
+    "cssinjs"
+  ],
   "peerDependencies": {
     "react": "^16.8.0",
     "react-native": "^0.60.0"
