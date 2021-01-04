@@ -1,8 +1,19 @@
-export * from './StyleView';
-export * from './PlatformTouch';
-export * from './StyleText';
-export * from './types';
-export * from './hooks';
+import styleEnhancer from './styleEnhancer';
+import nativeStyleEnhancers from './nativeStyleEnhancers';
+
+Object.assign(styleEnhancer, nativeStyleEnhancers);
+
+export * from './styleEnhancer';
 export * from './shadow';
 export * from './Context';
-export * from './StyleTextInput';
+export * from './nativeStyleComponents';
+export * from './composeInitialStyle';
+export * from './composeProps';
+export * from './getStylePredicate';
+export * from './isStyleProp';
+export * from './splitExcludedProps';
+export * from './splitStyleProps';
+export * from './styleProps';
+export * from './types';
+export default styleEnhancer as typeof styleEnhancer &
+  typeof nativeStyleEnhancers;

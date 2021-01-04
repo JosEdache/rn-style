@@ -3,6 +3,7 @@
 lib
 josedache-rn-style-*.tgz
 yarn.lock
+example/node_modules/
 
 # OSX
 #
