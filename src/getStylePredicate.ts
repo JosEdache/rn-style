@@ -9,7 +9,7 @@ import {
 } from './isStyleProp';
 import type {StyleMap} from './types';
 
-export function getStylePredicate(key: keyof StyleMap = 'All') {
+export function getStylePredicate(key: keyof StyleMap = 'AllStyle') {
   switch (key) {
     case 'ImageStyle':
       return isImageStyleProp;
@@ -24,7 +24,7 @@ export function getStylePredicate(key: keyof StyleMap = 'All') {
       return isTransformStyleProp;
     case 'ViewStyle':
       return isViewStyleProp;
-    case 'All':
+    case 'AllStyle':
     default:
       return isStyleProp;
   }
