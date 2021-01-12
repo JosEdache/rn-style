@@ -1,11 +1,12 @@
-# rn-style
+# react-native-style
 
-A react native library for styling View and Text components using props or hook function instead of StyleSheet.create function directly
+A react native styling solution for components, by passing styles as props.
 
 ## Features
 
-- Create styles with props passed from your custom components
-- PlatformTouch component for creating custom buttons and touchable components
+- Pass styles as props to custom component
+- Exposed built-in native component style enhancers or factories
+- Exposed built-in native components prefix with `Style`. eg `StyleView, StyleText, etc`
 
 ## Getting Started
 
@@ -13,23 +14,23 @@ A react native library for styling View and Text components using props or hook 
 
 #### yarn
 
-`yarn add @josedache/rn-style`
+`yarn add @josedache/react-native-style`
 
 #### npm
 
-`npm install --save @josedache/rn-style`
+`npm install --save @josedache/react-native-style`
 
 ### Usage
 
 ```javascript
 import React from 'react';
-import {StyleView, StyleText} from '@josedache/rn-style';
+import {StyleView, StyleText} from '@josedache/react-native-style';
 
 function App() {
   return (
     <StyleView width={200} height={300}>
       // accepts ViewProps and ViewStyle as props
-      <StyleText color="primary">Hello rn-style!</StyleText> // accepts TextProps
+      <StyleText color="primary">Hello react-native-style!</StyleText> // accepts TextProps
       and TextStyle as props
     </StyleView>
   );
@@ -46,7 +47,7 @@ Accepts StyleView props and TouchableNativeFeedbackProps (android) or TouchableO
 
 ```javascript
 import React from 'react';
-import {PlatformTouch, StyleText} from '@josedache/rn-style';
+import {PlatformTouch, StyleText} from '@josedache/react-native-style';
 
 export default function Button({text}) {
   return (
@@ -68,14 +69,14 @@ export default function Button({text}) {
 ```javascript
 import React from 'react';
 import {View, Text} from 'react-native';
-import {makeStyle} from '@josedache/rn-style';
+import {makeStyle} from '@josedache/react-native-style';
 
 export default function App() {
     const styles = useStyle({direction: 'row'})
 
   return (
       <View style={styles.root}>
-        <Text style={styles.text}>Hello rn-style!</Text>
+        <Text style={styles.text}>Hello react-native-style!</Text>
       </View>
   );
 }
@@ -99,17 +100,17 @@ const useStyle = makeStyle((props) => ({
 ```javascript
 import React from 'react';
 import {View, Text} from 'react-native';
-import {shadow, StyleView} from '@josedache/rn-style';
+import {shadow, StyleView} from '@josedache/react-native-style';
 
 export default function Card() {
     return (
         <View style={{...shadow(2 /** default to 0 */)}}>
-            <Text>Hello rn-style!</Text>
+            <Text>Hello react-native-style!</Text>
         </View>
 
 
         <StyleView elevation={2} backgroundColor='secondary'>
-            <Text>Hello rn-style!</Text>
+            <Text>Hello react-native-style!</Text>
         </StyleView>
     )
 }
