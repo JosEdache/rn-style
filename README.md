@@ -1,12 +1,14 @@
 # react-native-style
 
-A react native styling solution for components, by passing styles as props.
+A styling solution for react native components.
 
 ## Features
 
-- Pass styles as props to custom component
-- Exposed built-in native component style enhancers or factories
-- Exposed built-in native components prefix with `Style`. eg `StyleView, StyleText, etc`
+- Pass styles as props on components
+- Generate style dynamically based on component props.
+- Exposed built-in react native component factories
+- Exposed built-in react native components prefix with `Style`. eg `StyleView, StyleText, etc`.
+- Choose how styles are overridden
 
 ## Getting Started
 
@@ -28,10 +30,8 @@ import {StyleView, StyleText} from '@josedache/react-native-style';
 
 function App() {
   return (
-    <StyleView width={200} height={300}>
-      // accepts ViewProps and ViewStyle as props
-      <StyleText color="primary">Hello react-native-style!</StyleText> // accepts TextProps
-      and TextStyle as props
+    <StyleView width={200} height={300} backgroundColor="green">
+      <StyleText color="white">Hello react-native-style!</StyleText>
     </StyleView>
   );
 }
@@ -39,61 +39,7 @@ function App() {
 export default App;
 ```
 
-#### Using PlatformTouch component
-
-Accepts StyleView props and TouchableNativeFeedbackProps (android) or TouchableOpacityProps (ios)
-
-> **Note** pass outerDirection='row' which sets the outer StyleView flexDirection to row to help the inner StyleView align well when the parent of the PlatformTouch component has flexDirection row and vise versa
-
-```javascript
-import React from 'react';
-import {PlatformTouch, StyleText} from '@josedache/react-native-style';
-
-export default function Button({text}) {
-  return (
-    <PlatformTouch
-      borderRadius={20}
-      outerDirection="row"
-      alignItems="center"
-      justifyContent="center"
-      backgroundColor="secondary"
-      onPress={() => console.log('Press')}>
-      <StyleText>{text}</StyleText>
-    </PlatformTouch>
-  );
-}
-```
-
-#### Creating style with makeStyle function
-
-```javascript
-import React from 'react';
-import {View, Text} from 'react-native';
-import {makeStyle} from '@josedache/react-native-style';
-
-export default function App() {
-    const styles = useStyle({direction: 'row'})
-
-  return (
-      <View style={styles.root}>
-        <Text style={styles.text}>Hello react-native-style!</Text>
-      </View>
-  );
-}
-
-// returns hook that accepts props to be used in this style
-const useStyle = makeStyle((props) => ({
-    root: {
-        backgroundColor: 'pink'
-        flexDirection: props.direction
-    },
-    text: {
-        color: 'purple'
-    }
-}))
-```
-
-#### Creating elevation using shadow function or StyleView elevation prop
+#### Creating elevation using shadow function
 
 > Works for both ios and android
 
@@ -108,124 +54,217 @@ export default function Card() {
             <Text>Hello react-native-style!</Text>
         </View>
 
-
-        <StyleView elevation={2} backgroundColor='secondary'>
+        <StyleView {...shadow(2)} backgroundColor='secondary'>
             <Text>Hello react-native-style!</Text>
         </StyleView>
     )
 }
 ```
 
+#### Counter Example
+
+```js
+import React from 'react';
+import rnStyle, {
+  StyleView,
+  StyleTouchableOpacity,
+  StyleText,
+  StyleProvider,
+} from '@josedache/react-native-style';
+import {TouchableOpacityProps, StyleSheet} from 'react-native';
+
+const styles = StyleSheet.create({
+  buttonHeight: {
+    minHeight: 35,
+    minWidth: 56,
+    margin: 8,
+    backgroundColor: 'pink',
+  },
+});
+
+const Display = rnStyle.Text({
+  fontSize: 56,
+  fontWeight: 'bold',
+  marginBottom: 32,
+});
+
+const Button = rnStyle(
+  /** @param {TouchableOpacityProps} props */
+  (props) => (
+    <StyleTouchableOpacity {...props}>
+      <StyleText color="white" fontSize={20}>
+        {props.children}
+      </StyleText>
+    </StyleTouchableOpacity>
+  ),
+  {excludeFowardedProps: ['counter', 'bgColor'], propsAreStyleOverrides: false}, // excludes props not to be forwarded to the passed in component
+)(
+  styles.buttonHeight,
+  // styles overrides styles above
+  {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+    borderRadius: 4,
+    margin: 8,
+    backgroundColor: 'yellow',
+  },
+  // function styles overrides object styles in any order and function styles above
+  ({counter, bgColor = 'blue'}, ctx) => ({
+    // ctx.theme can be used here
+    backgroundColor: counter % 2 ? 'grey' : bgColor,
+  }),
+);
+
+export default function App() {
+  const [counter, setCounter] = React.useState(0);
+
+  return (
+    <StyleProvider theme={{mode: 'light'}}>
+      <StyleView flex={1} justifyContent="center" alignItems="center">
+        <StyleText
+          marginBottom={32}
+          fontSize={25}
+          fontWeight="bold"
+          color="grey">
+          Hello react-native-style!
+        </StyleText>
+        <Display>{counter}</Display>
+        <StyleView flexDirection="row">
+          <Button
+            onPress={() => setCounter((p) => --p)}
+            // backgroundColor="red"
+            bgColor="red"
+            counter={counter}>
+            Decrement
+          </Button>
+          <Button
+            onPress={() => setCounter((p) => ++p)}
+            backgroundColor="pink"
+            bgColor="green"
+            counter={counter}>
+            Increment
+          </Button>
+        </StyleView>
+      </StyleView>
+    </StyleProvider>
+  );
+}
+```
+
 ## API
 
-### Types
+### styleFactory
 
-- [ViewStyle](https://reactnative.dev/docs/view-style-props)
-- [TextStyle](https://reactnative.dev/docs/text-style-props)
-- [ViewProps](https://reactnative.dev/docs/view#props)
-- [TextProps](https://reactnative.dev/docs/text#props)
-- [TextInputProps](https://reactnative.dev/docs/textinput#props)
+`styleFactory` or `rnStyle` function is the default export. it is used to create component that accepts styles as props including your passed component props. The style props are composed then passed to your component based on the `stylePropsKey` option which default to style.
 
-> **Note** elevation prop can be used to pass elevation or shadow for both android and ios. but ios can be customized using the neccessary style props.
+#### params
+
+##### Component
+
+The component to compose style for
+
+##### options
+
+An object to configure how styles are composed
+
+```javascript
+{
+    displayName: string; // the display name to use. default to styleComponent(Component.displayName)
+    propsAreStyleOverrides: boolean; // set to false if you want styles specified during creation to override styles passed on style component. default to true
+    stylePropKey: string; // your component prop to pass the composed styles. default to 'style' prop
+    styleType: string; // the style type to use for spliting styles from props. default to AllStyles
+    forwardRef: boolean; // if ref should be forwarded to your passed component
+    excludeFowardedProps: string[]; // use to exclude props not to be forwarded to your component or extra props passed to `StyleComponent`.
+}
+```
+
+##### returns
+
+The `styleFactory` returns `StyleComponentFactory` used to pass initial or default styles for your component.
+
+### StyleComponentFactory
+
+A function that accepts styles and returns the `StyleComponent` that accept styles as props.
+
+#### params
+
+##### styles
+
+It is used as default styles or style overriddes if `propsAreStyleOverrides` is false. Accept vargs params of styles of object, object array, function and registered styles (styles created using StyleSheet.create)
+
+> **Note**
+>
+> styles on the right overrides styles on the left, but function styles overrides non function styles in any order or position.
+>
+> function styles receives component props as first argument and context as second.
+
+##### returns
+
+`StyleComponent` that accept styles as props, including your component props.
 
 ### StyleProvider
 
-Context Provider for setting default values for some component
+Context Provider for setting default styles for native style components. it also accepts arbitrary number of properties, that can be accessed from function styles on `StyleComponentFactory`
 
-#### value props
+#### props
 
 ```javascript
+  type Style = Function | object | object[] // alse registered styles
+
 {
-  // sets the default fontFamily for both StyleText and StyleTextInput component
-  fontFamily: string; 
+    [x: string]: any;
+    viewStyle: Style;
+    textStyle: Style;
+    textInputStyle: Style;
+    imageStyle: Style;
+    imageBackgroundStyle: Style;
+    scrollViewStyle: Style;
+    flatListStyle: Style;
+    sectionListStyle: Style;
+    virtualizedListStyle: Style;
+    touchableHighlightStyle: Style;
+    touchableOpacityStyle: Style;
+    touchableNativeFeedbackStyle: Style;
+    touchableWithoutFeedbackStyle: Style;
 }
 ```
 
-### StyleView
+### useStyleContext
 
-Accepts all ViewStyle properties and ViewProps as props
+Use to access style context from your components
 
-#### additional
+### nativeStyleComponentFactories
 
-```javascript
-{
-    animated: boolean, // indicate if the root component should be Animated.View. default to false
-}
-```
+They all accept styles as argument similar to `StyleComponentFactory`. They are accessed from the default export.
 
-### StyleText
+- View - Accepts ViewStyles
+- Text - Accepts TextStyles
+- TextInput - Accepts TextStyles
+- Image - Accepts ImageStyles
+- ImageBackground - Accepts ViewStyles
+- ScrollView - Accepts ViewStyles
+- FlatList - Accepts ViewStyles
+- SectionList - Accepts ViewStyles
+- VirtualizedList - Accepts ViewStyles
+- TouchableHighlight - Accepts ViewStyles
+- TouchableNativeFeedback - Accepts ViewStyles
+- TouchableOpacity - Accepts ViewStyles
+- TouchableWithoutFeedback - Accepts ViewStyles
 
-Accepts all TextStyle properties and TextProps as props
+### nativeStyleComponents
 
-#### additional
+All native nativeStyleComponentFactories prefixed with `Style` eg. `StyleView`
 
-```javascript
-{
-}
-```
+### shadow
 
-### StyleTextInput
+A function that accepts a number creates elevation for both ios and android
 
-Accepts all TextStyle properties and TextInputProps as props
-
-#### additional
-
-```javascript
-{
-}
-```
-
-### PlatformTouch
-
-Accepts [StyleView](#StyleView) props and TouchableNativeFeedbackProps (android) or TouchableOpacityProps (ios) as props
-
-#### additional
-
-```javascript
-{
-    outerDirection: ViewStyle['flex-direction'], //  Sets the outer StyleView flexDirection to row. default to 'column',
-    outerStyle: ViewStyle, // style to be used for the outer StyleView
-    innerStyle: ViewStyle, // style to be used for the inner StyleView
-}
-```
-
-### makeStyle Function
-
-Creates configurable styles using passed props and theme from it's returned callback
-
-#### params
-
-##### option - (props) => styleObject
-
-```js
-const useStyle = makeStyle((props) => ({
-    root: {
-        backgroundColor: theme.colors.primary
-        flexDirection: props.direction
-    },
-    text: {
-        color: theme.colors.textOnPrimary
-    }
-}))
-
-```
-
-### shadow Function
-
-A function that creates elevation for both ios and android
-
-> Note elevation option param can be passed Animated.Value for Animated.View Component
-
-#### params
-
-##### option - (elevation) => ios or android shadow
-
-```js
-```
+> Note elevation param can be passed Animated.Value for Animated.View Component
 
 ## Authors
 
-- **Edache Joseph** - @josedache
+- **Edache Joseph Edache** - @josedache
 
 ## Acknowledgments
 

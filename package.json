@@ -1,6 +1,6 @@
 {
   "name": "@josedache/react-native-style",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "main": "lib/index.js",
   "types": "lib/typings/index.d.ts",
   "module": "lib/index.js",
@@ -31,10 +31,16 @@
     "react-native-web",
     "react-native-style",
     "jsxstyle",
+    "style-components",
     "styled-components",
     "css-in-js",
-    "cssinjs"
+    "cssinjs",
+    "style-in-js"
   ],
+  "publishConfig": {
+    "access": "public",
+    "tag": "beta"
+  },
   "peerDependencies": {
     "react": "^16.8.0",
     "react-native": "^0.60.0"
