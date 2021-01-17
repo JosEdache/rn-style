@@ -6,10 +6,10 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "local": "rm -rf /home/edache/.cache/yarn/v6/.tmp && yarn add ../josedache-rn-style-v2.2.0.tgz --force"
+    "local": "rm -rf /home/edache/.cache/yarn/v6/.tmp && yarn add ../josedache-react-native-style-v0.0.0.tgz --force"
   },
   "dependencies": {
-    "@josedache/rn-style": "../josedache-rn-style-v2.2.0.tgz",
+    "@josedache/react-native-style": "../josedache-react-native-style-v0.0.0.tgz",
     "expo": "~40.0.0",
     "expo-status-bar": "~1.0.3",
     "react": "16.13.1",

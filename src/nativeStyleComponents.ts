@@ -1,62 +1,67 @@
-import nativeStyleEnhancers from './nativeStyleEnhancers';
+import nativeStyleComponentFactories from './nativeStyleComponentFactories';
+import composeStyles from './composeStyles';
 
-function composeInitialStyle<P, S>(props: P, style: S) {
-  if (typeof style === 'object') {
-    return style;
-  } else if (typeof style === 'function') {
-    return style(props);
-  }
-  return undefined;
+function composeCtxStyles(key: string) {
+  return (props: any, ctx: any) => {
+    if (ctx && ctx[key]) {
+      const [registeredStyles, functionStyles] = composeStyles(ctx[key]);
+      return [
+        ...registeredStyles,
+        ...functionStyles.map((functionStyle) => functionStyle(props)),
+      ];
+    }
+    return;
+  };
 }
 
-export const StyleView = nativeStyleEnhancers.View((_, ctx) =>
-  composeInitialStyle(_, ctx.textStyle),
+export const StyleView = nativeStyleComponentFactories.View(
+  composeCtxStyles('textStyle'),
 );
 
-export const StyleText = nativeStyleEnhancers.Text((_, ctx) =>
-  composeInitialStyle(_, ctx.textStyle),
+export const StyleText = nativeStyleComponentFactories.Text(
+  composeCtxStyles('textStyle'),
 );
 
-export const StyleTextInput = nativeStyleEnhancers.TextInput((_, ctx) =>
-  composeInitialStyle(_, ctx.textInputStyle),
+export const StyleTextInput = nativeStyleComponentFactories.TextInput(
+  composeCtxStyles('textInputStyle'),
 );
 
-export const StyleImage = nativeStyleEnhancers.Image((_, ctx) =>
-  composeInitialStyle(_, ctx.imageStyle),
+export const StyleImage = nativeStyleComponentFactories.Image(
+  composeCtxStyles('imageStyle'),
 );
 
-export const StyleImageBackground = nativeStyleEnhancers.ImageBackground(
-  (_, ctx) => composeInitialStyle(_, ctx.imageBackgroundStyle),
+export const StyleImageBackground = nativeStyleComponentFactories.ImageBackground(
+  composeCtxStyles('imageBackgroundStyle'),
 );
 
-export const StyleScrollView = nativeStyleEnhancers.ScrollView((_, ctx) =>
-  composeInitialStyle(_, ctx.scrollViewStyle),
+export const StyleScrollView = nativeStyleComponentFactories.ScrollView(
+  composeCtxStyles('scrollViewStyle'),
 );
 
-export const StyleFlatList = nativeStyleEnhancers.FlatList((_, ctx) =>
-  composeInitialStyle(_, ctx.flatListStyle),
+export const StyleFlatList = nativeStyleComponentFactories.FlatList(
+  composeCtxStyles('flatListStyle'),
 );
 
-export const StyleSectionList = nativeStyleEnhancers.SectionList((_, ctx) =>
-  composeInitialStyle(_, ctx.sectionListStyle),
+export const StyleSectionList = nativeStyleComponentFactories.SectionList(
+  composeCtxStyles('sectionListStyle'),
 );
 
-export const StyleVirtualizedList = nativeStyleEnhancers.VirtualizedList(
-  (_, ctx) => composeInitialStyle(_, ctx.virtualizedListStyle),
+export const StyleVirtualizedList = nativeStyleComponentFactories.VirtualizedList(
+  composeCtxStyles('virtualizedListStyle'),
 );
 
-export const StyleTouchableHighlight = nativeStyleEnhancers.TouchableHighlight(
-  (_, ctx) => composeInitialStyle(_, ctx.touchableHighlightStyle),
+export const StyleTouchableHighlight = nativeStyleComponentFactories.TouchableHighlight(
+  composeCtxStyles('touchableHighlightStyle'),
 );
 
-export const StyleTouchableNativeFeedback = nativeStyleEnhancers.TouchableNativeFeedback(
-  (_, ctx) => composeInitialStyle(_, ctx.touchableNativeFeedbackStyle),
+export const StyleTouchableNativeFeedback = nativeStyleComponentFactories.TouchableNativeFeedback(
+  composeCtxStyles('touchableNativeFeedbackStyle'),
 );
 
-export const StyleTouchableOpacity = nativeStyleEnhancers.TouchableOpacity(
-  (_, ctx) => composeInitialStyle(_, ctx.touchableOpacityStyle),
+export const StyleTouchableOpacity = nativeStyleComponentFactories.TouchableOpacity(
+  composeCtxStyles('touchableOpacityStyle'),
 );
 
-export const StyleTouchableWithoutFeedback = nativeStyleEnhancers.TouchableWithoutFeedback(
-  (_, ctx) => composeInitialStyle(_, ctx.touchableWithoutFeedbackStyle),
+export const StyleTouchableWithoutFeedback = nativeStyleComponentFactories.TouchableWithoutFeedback(
+  composeCtxStyles('touchableWithoutFeedbackStyle'),
 );

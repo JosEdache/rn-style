@@ -1,7 +1,7 @@
 # App
 #
 lib
-josedache-rn-style-*.tgz
+josedache-react-native-style-*.tgz
 yarn.lock
 example/node_modules/
 

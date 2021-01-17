@@ -4,10 +4,9 @@ export function splitExcludedProps<P, E extends keyof P>(
 ) {
   const {remainder, excluded} = exclusions.reduce(
     (acc, exclusion) => {
-      const prop = acc.remainder[exclusion];
-      if (prop) {
+      if ((acc.remainder as any).hasOwnProperty(exclusion)) {
+        acc.excluded[exclusion] = acc.remainder[exclusion];
         delete acc.remainder[exclusion];
-        acc.excluded[exclusion] = prop;
       }
       return acc;
     },

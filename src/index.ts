@@ -1,13 +1,13 @@
-import styleEnhancer from './styleEnhancer';
-import nativeStyleEnhancers from './nativeStyleEnhancers';
+import styleEnhancer from './styleFactory';
+import nativeStyleComponentFactories from './nativeStyleComponentFactories';
 
-Object.assign(styleEnhancer, nativeStyleEnhancers);
+Object.assign(styleEnhancer, nativeStyleComponentFactories);
 
-export * from './styleEnhancer';
+export * from './styleFactory';
 export * from './shadow';
-export * from './Context';
+export * from './StyleContext';
 export * from './nativeStyleComponents';
-export * from './composeInitialStyle';
+export * from './composeStyles';
 export * from './composeProps';
 export * from './getStylePredicate';
 export * from './isStyleProp';
@@ -16,4 +16,4 @@ export * from './splitStyleProps';
 export * from './styleProps';
 export * from './types';
 export default styleEnhancer as typeof styleEnhancer &
-  typeof nativeStyleEnhancers;
+  typeof nativeStyleComponentFactories;

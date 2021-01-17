@@ -1,6 +1,6 @@
 {
-  "name": "@josedache/rn-style",
-  "version": "2.2.0",
+  "name": "@josedache/react-native-style",
+  "version": "0.0.0",
   "main": "lib/index.js",
   "types": "lib/typings/index.d.ts",
   "module": "lib/index.js",
@@ -11,31 +11,36 @@
     "lint": "eslint .",
     "tsc": "rm -rf lib && tsc",
     "prepack": "rm -rf josedache-*",
-    "build": "yarn run tsc && rm -rf /home/edache/.cache/yarn/v6/.tmp && yarn remove @josedache/rn-style && yarn cache clean @josedache/rn-style && rm -rf josedache-* && yarn pack && yarn add -D ./josedache-rn-style-v1.0.3.tgz"
+    "build": "yarn run tsc && rm -rf /home/edache/.cache/yarn/v6/.tmp && yarn remove @josedache/react-native-style && yarn cache clean @josedache/react-native-style && rm -rf josedache-* && yarn pack && yarn add -D ./josedache-react-native-style-v1.0.3.tgz"
   },
   "files": [
     "lib"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/josedache/rn-style"
+    "url": "https://github.com/josedache/react-native-style"
   },
   "author": {
     "name": "Edache Joseph",
     "email": "josedache0@gmail.com",
-    "url": "https://github.com/josedache/rn-style"
+    "url": "https://github.com/josedache/react-native-style"
   },
   "keywords": [
     "react",
     "react-native",
     "react-native-web",
     "react-native-style",
-    "rn-style",
     "jsxstyle",
+    "style-components",
     "styled-components",
     "css-in-js",
-    "cssinjs"
+    "cssinjs",
+    "style-in-js"
   ],
+  "publishConfig": {
+    "access": "public",
+    "tag": "beta"
+  },
   "peerDependencies": {
     "react": "^16.8.0",
     "react-native": "^0.60.0"
